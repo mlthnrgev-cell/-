@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saeed Store</title>
+  <meta name="description" content="Saeed Store - متجر إلكتروني للإكسسوارات والإلكترونيات">
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell">
+      <a class="brand" href="#home" aria-label="Saeed Store">
+        <span class="brand-mark"><img src="assets/saeed-logo.jpeg" alt="Saeed Store logo"></span>
+        <span>
+          <strong data-site-name>Saeed Store</strong>
+          <small>Everything You Need</small>
+        </span>
+      </a>
+      <button class="icon-button nav-toggle" data-nav-toggle aria-label="فتح القائمة">☰</button>
+      <div class="nav-links" data-nav-links>
+        <a href="#home">الرئيسية</a>
+        <a href="#categories">الأقسام</a>
+        <a href="#offers">العروض</a>
+        <a href="#about">من نحن</a>
+        <a href="#contact">تواصل معنا</a>
+        <a href="dashboard.html" class="admin-link">لوحة التحكم</a>
+        <button class="theme-toggle" data-theme-toggle type="button">الوضع الداكن</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero" data-hero>
+      <div class="hero-content">
+        <p class="eyebrow">🛍️ Saeed Store</p>
+        <h1 data-hero-title>Welcome to Saeed Store</h1>
+        <p data-hero-subtitle>Best Accessories & Electronics</p>
+      <div class="hero-actions">
+          <a class="primary-button" href="#products" data-hero-button>Shop Now</a>
+          <a class="secondary-button" href="#offers">شاهد العروض</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img data-hero-image src="assets/saeed-logo.jpeg" alt="Saeed Store">
+      </div>
+    </section>
+
+    <section class="search-band">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="globalSearch" type="search" placeholder="ابحث عن ساعة، سماعة، كابل..." autocomplete="off">
+      </div>
+      <div class="quick-results" id="quickResults"></div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">الأقسام</p>
+          <h2>تسوق حسب القسم</h2>
+        </div>
+        <a href="#products">كل المنتجات</a>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="section products-layout" id="products">
+      <aside class="filters-panel">
+        <div class="section-head compact">
+          <h2>الفلاتر</h2>
+          <button class="text-button" id="resetFilters" type="button">مسح</button>
+        </div>
+        <label>القسم<select id="categoryFilter"></select></label>
+        <label>الشركة<select id="brandFilter"></select></label>
+        <label>اللون<select id="colorFilter"></select></label>
+        <label>التقييم<select id="ratingFilter"></select></label>
+        <label>التوفر<select id="stockFilter"></select></label>
+        <label>السعر حتى <span id="priceValue"></span><input id="priceFilter" type="range" min="0" max="3000" step="50"></label>
+      </aside>
+      <div>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">المنتجات</p>
+            <h2>منتجات مختارة</h2>
+          </div>
+          <span id="productCount"></span>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="offers">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">العروض</p>
+          <h2>منتجات عليها خصم</h2>
+        </div>
+      </div>
+      <div class="product-grid" id="offersGrid"></div>
+    </section>
+
+    <section class="section info-section" id="about">
+      <div>
+        <p class="eyebrow">من نحن</p>
+        <h2>متجر سريع ومرن لكل احتياجاتك</h2>
+      </div>
+      <p data-about-text>نقدم في Saeed Store مجموعة عملية من الإكسسوارات والساعات والسماعات والإلكترونيات، مع تحديث مستمر للمنتجات والعروض.</p>
+    </section>
+
+    <section class="section contact-section" id="contact">
+      <div>
+        <p class="eyebrow">تواصل معنا</p>
+        <h2>بيانات التواصل</h2>
+      </div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </section>
+  </main>
+
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" data-close-modal type="button" aria-label="إغلاق">×</button>
+      <div id="productDetails"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div>
+      <strong data-footer-name>Saeed Store</strong>
+      <span>Everything You Need</span>
+    </div>
+    <p class="developer-credit">تم تنفيذ الموقع من قبل Eng/Khaled Elgafarey - 01010474002</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

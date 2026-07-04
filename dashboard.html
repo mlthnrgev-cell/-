@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم Saeed Store</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+  <div class="password-gate" id="passwordGate">
+    <form class="password-card" id="passwordForm">
+      <div class="brand">
+        <span class="brand-mark"><img src="assets/saeed-logo.jpeg" alt="Saeed Store logo"></span>
+        <span><strong>Saeed Store</strong><small>Admin Login</small></span>
+      </div>
+      <label>كلمة مرور المدير<input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary-button" type="submit">دخول لوحة التحكم</button>
+      <p id="passwordError"></p>
+    </form>
+  </div>
+
+  <aside class="admin-sidebar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"><img src="assets/saeed-logo.jpeg" alt="Saeed Store logo"></span>
+      <span><strong>Saeed Store</strong><small>Dashboard</small></span>
+    </a>
+    <button data-admin-tab="overview" class="active">Dashboard</button>
+    <button data-admin-tab="products">إدارة المنتجات</button>
+    <button data-admin-tab="categories">إدارة الأقسام</button>
+    <button data-admin-tab="banners">إدارة البانرات</button>
+    <button data-admin-tab="media">الصور والمحتوى</button>
+    <button data-admin-tab="contact">بيانات التواصل</button>
+    <button data-admin-tab="settings">إعدادات الموقع</button>
+    <a href="index.html">عرض الموقع</a>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-topbar">
+      <div>
+        <p class="eyebrow">لوحة تحكم</p>
+        <h1>إدارة Saeed Store</h1>
+      </div>
+      <div class="admin-actions">
+        <button class="secondary-button" id="saveDashboardChanges" type="button">حفظ التعديلات</button>
+      </div>
+      <p class="save-toast" id="saveToast" role="status"></p>
+    </header>
+
+    <section class="admin-tab active" id="tab-overview">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="admin-grid two">
+        <div class="admin-card">
+          <h2>تنبيهات المخزون</h2>
+          <div id="stockAlerts"></div>
+        </div>
+        <div class="admin-card">
+          <h2>آخر التعديلات</h2>
+          <div id="recentChanges"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-tab" id="tab-products">
+      <div class="admin-grid">
+        <form class="admin-card form-grid" id="productForm">
+          <h2>إضافة / تعديل منتج</h2>
+          <input type="hidden" name="id">
+          <label>اسم المنتج<input name="name" required></label>
+          <label>السعر الحالي<input name="price" type="number" min="0" required></label>
+          <label>السعر القديم<input name="oldPrice" type="number" min="0"></label>
+          <label>القسم<select name="category" required></select></label>
+          <label>الشركة<input name="brand"></label>
+          <label>اللون<input name="color"></label>
+          <label>المقاس<input name="size"></label>
+          <label>الكمية<input name="stock" type="number" min="0" required></label>
+          <label>التقييم<input name="rating" type="number" min="1" max="5" step="0.1"></label>
+          <label>ترتيب الظهور<input name="order" type="number" min="1"></label>
+          <label class="image-data-field">رابط الصورة الرئيسية<input name="image" inputmode="url" data-image-target="productImagePreview" data-preview-status="productImageStatus" placeholder="ضع رابط الصورة هنا فقط"></label>
+          <div class="upload-tool link-preview">
+            <img id="productImagePreview" src="assets/hero-store.svg" alt="معاينة صورة المنتج">
+            <p class="image-preview-status" id="productImageStatus">ضع رابط الصورة لمعاينتها هنا.</p>
+          </div>
+          <label class="image-data-field">روابط الصور الإضافية<textarea name="gallery" placeholder="حد أقصى 8 روابط. ضع JSON array أو افصل الروابط بفاصلة"></textarea></label>
+          <div class="upload-tool link-preview">
+            <div class="gallery-preview" id="productGalleryPreview"></div>
+            <p class="image-preview-status" id="productGalleryStatus">ضع روابط صور المعرض في المربع السابق لمعاينتها هنا.</p>
+          </div>
+          <label>المواصفات<textarea name="specs"></textarea></label>
+          <label>الوصف<textarea name="description"></textarea></label>
+          <label class="check-row"><input name="featured" type="checkbox"> منتج مميز</label>
+          <label class="check-row"><input name="visible" type="checkbox" checked> ظاهر في الموقع</label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">حفظ المنتج</button>
+            <button class="secondary-button" id="clearProductForm" type="button">تفريغ</button>
+          </div>
+        </form>
+        <div class="admin-card">
+          <h2>قائمة المنتجات</h2>
+          <div class="admin-list" id="adminProducts"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-tab" id="tab-categories">
+      <div class="admin-grid">
+        <form class="admin-card form-grid" id="categoryForm">
+          <h2>إضافة / تعديل قسم</h2>
+          <input type="hidden" name="id">
+          <label>اسم القسم<input name="name" required></label>
+          <label>الأيقونة<input name="icon" placeholder="⌚"></label>
+          <div class="icon-picker" id="iconPicker" aria-label="اختيار أيقونة"></div>
+          <label class="image-data-field">رابط صورة القسم<input name="image" data-image-target="categoryImagePreview" placeholder="رابط صورة مباشر https أو Cloudinary فقط"></label>
+          <div class="upload-tool">
+            <img id="categoryImagePreview" src="assets/hero-store.svg" alt="معاينة صورة القسم">
+            <label class="secondary-button">تحميل صورة من الجهاز<input type="file" accept="image/*" data-upload-to="categoryForm:image" hidden></label>
+          </div>
+          <label>ترتيب الظهور<input name="order" type="number" min="1"></label>
+          <button class="primary-button" type="submit">حفظ القسم</button>
+        </form>
+        <div class="admin-card">
+          <h2>الأقسام الحالية</h2>
+          <div class="admin-list" id="adminCategories"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-tab" id="tab-banners">
+      <form class="admin-card form-grid" id="bannerForm">
+        <h2>البانر الرئيسي</h2>
+        <label>العنوان<input name="title"></label>
+        <label>العنوان الفرعي<input name="subtitle"></label>
+        <label>نص الزر<input name="buttonText"></label>
+        <label class="image-data-field">رابط صورة البانر<input name="image" data-image-target="bannerImagePreview" placeholder="رابط صورة مباشر https أو Cloudinary فقط"></label>
+        <div class="upload-tool">
+          <img id="bannerImagePreview" src="assets/hero-store.svg" alt="معاينة صورة البانر">
+          <label class="secondary-button">تحميل صورة من الجهاز<input type="file" accept="image/*" data-upload-to="bannerForm:image" hidden></label>
+        </div>
+        <label class="check-row"><input name="visible" type="checkbox"> إظهار البانر</label>
+        <button class="primary-button" type="submit">حفظ البانر</button>
+      </form>
+    </section>
+
+    <section class="admin-tab" id="tab-media">
+      <div class="admin-card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">الصور والمحتوى</p>
+            <h2>تعديل سريع لكل صور الموقع</h2>
+          </div>
+          <button class="primary-button" id="saveMediaChanges" type="button">حفظ التعديلات</button>
+        </div>
+        <p class="save-hint">بعد اختيار أي صورة من الجهاز اضغط حفظ التعديلات حتى تظهر في الموقع.</p>
+        <div class="media-manager" id="mediaManager"></div>
+      </div>
+    </section>
+
+    <section class="admin-tab" id="tab-contact">
+      <form class="admin-card form-grid" id="contactForm">
+        <h2>بيانات التواصل</h2>
+        <label>الهاتف<input name="phone"></label>
+        <label>واتساب<input name="whatsapp"></label>
+        <label>البريد الإلكتروني<input name="email"></label>
+        <label>العنوان<input name="address"></label>
+        <label>فيسبوك<input name="facebook"></label>
+        <label>إنستجرام<input name="instagram"></label>
+        <label>تيك توك<input name="tiktok"></label>
+        <label>يوتيوب<input name="youtube"></label>
+        <button class="primary-button" type="submit">حفظ التواصل</button>
+      </form>
+    </section>
+
+    <section class="admin-tab" id="tab-settings">
+      <form class="admin-card form-grid" id="settingsForm">
+        <h2>إعدادات الموقع</h2>
+        <label>اسم الموقع<input name="siteName"></label>
+        <label>الشعار<input name="logo"></label>
+        <label>اللون الأساسي<input name="primaryColor" type="color"></label>
+        <label>اللون الثانوي<input name="secondaryColor" type="color"></label>
+        <label>لون الأزرار<input name="buttonColor" type="color"></label>
+        <label>لون الخلفية<input name="backgroundColor" type="color"></label>
+        <label>لون النصوص<input name="textColor" type="color"></label>
+        <label>الخط<input name="fontFamily"></label>
+        <label>نبذة المتجر<textarea name="about"></textarea></label>
+        <label>كلمة مرور لوحة التحكم<input name="adminPassword" type="password"></label>
+        <label>رقم واتساب الطلبات<input name="whatsappNumber"></label>
+        <label>رسالة واتساب<textarea name="whatsappMessage"></textarea></label>
+        <button class="primary-button" type="submit">حفظ الإعدادات</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/cloudinary-config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
